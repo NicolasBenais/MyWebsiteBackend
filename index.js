@@ -6,6 +6,11 @@ const cors = require("cors");
 
 const app = express();
 app.use(formidableMiddleware);
+app.use(morgan("dev"));
+app.use(cors());
+
+const publishRoutes = require("./routes/publish");
+app.use(publishRoutes);
 
 const picturesRoutes = require("./routes/pictures");
 app.use(picturesRoutes);

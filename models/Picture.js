@@ -6,7 +6,7 @@ const Picture = mongoose.model("Picture", {
   location: String,
   film: String,
   camera: String,
-  Lens: String,
+  lens: String,
   tags: Array,
 });
 
