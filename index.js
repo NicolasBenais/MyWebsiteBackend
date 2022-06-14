@@ -1,13 +1,9 @@
 require("dotenv").config();
 const express = require("express");
-const formidableMiddleware = require("express-formidable");
-const morgan = require("morgan");
-const cors = require("cors");
+const formidable = require("express-formidable");
 
 const app = express();
-app.use(formidableMiddleware);
-app.use(morgan("dev"));
-app.use(cors());
+app.use(formidable());
 
 const publishRoutes = require("./routes/publish");
 app.use(publishRoutes);

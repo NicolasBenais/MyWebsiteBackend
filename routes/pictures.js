@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const axios = require("axios");
 
 const apiKey = "";
 
@@ -23,3 +22,5 @@ router.get("pictures/:id", async (req, res) => {
     console.log(error.message);
   }
 });
+
+module.exports = router;
