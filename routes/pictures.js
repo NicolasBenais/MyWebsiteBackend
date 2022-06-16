@@ -12,15 +12,4 @@ router.get("/pictures", async (req, res) => {
   }
 });
 
-router.get("pictures/:id", async (req, res) => {
-  try {
-    const response = await axios.get(
-      `http://urltest.com/pictures/${req.fields.id}`
-    );
-    res.json(response.data);
-  } catch (error) {
-    console.log(error.message);
-  }
-});
-
 module.exports = router;
