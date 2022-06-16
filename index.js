@@ -15,6 +15,10 @@ app.all("*", (req, res) => {
   res.status(400).json("Page introuvable");
 });
 
-app.listen(4000, () => {
-  console.log("Serveur Started");
+app.listen(process.env.PORT, () => {
+  console.log("Serveur has started");
 });
+
+// app.listen(4000, () => {
+//   console.log("Serveur Started");
+// });
