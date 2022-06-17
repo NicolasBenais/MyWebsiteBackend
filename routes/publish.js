@@ -10,15 +10,15 @@ cloudinary.config({
 
 const Publish = require("../models/Picture");
 
-router.post("/picture/publish", async (req, res) => {
+router.post("/publish", async (req, res) => {
   try {
     const newPublish = new Publish({
-      date,
-      location,
-      film,
-      camera,
-      lens,
-      tags,
+      date: req.fields.date,
+      location: req.fields.location,
+      film: req.fields.film,
+      camera: req.fields.camera,
+      lens: req.fields.lens,
+      tags: req.fields.tags,
     });
 
     const picture = await cloudinary.uploader.upload(req.files.picture.path, {
