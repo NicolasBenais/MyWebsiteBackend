@@ -11,39 +11,51 @@ cloudinary.config({
 const Publish = require("../models/Picture");
 
 router.post("/publish", async (req, res) => {
-  try {
-    const newPublish = new Publish({
-      date: req.fields.date,
-      location: req.fields.location,
-      film: req.fields.film,
-      camera: req.fields.camera,
-      lens: req.fields.lens,
-      tags: req.fields.tags,
-    });
+  if (
+    req.fields.date &&
+    req.fields.location &&
+    req.fields.film &&
+    req.fields.camera &&
+    req.fields.lens &&
+    req.fields.tags &&
+    req.files.picture
+  ) {
+    try {
+      const newPublish = new Publish({
+        date: req.fields.date,
+        location: req.fields.location,
+        film: req.fields.film,
+        camera: req.fields.camera,
+        lens: req.fields.lens,
+        tags: req.fields.tags,
+      });
 
-    const picture = await cloudinary.uploader.upload(req.files.picture.path, {
-      folder: "MyProject",
-      id: newPublish._id,
-    });
+      const picture = await cloudinary.uploader.upload(req.files.picture.path, {
+        folder: "MyProject",
+        id: newPublish._id,
+      });
 
-    newPublish.image = picture;
+      newPublish.image = picture;
 
-    await newPublish.save();
+      await newPublish.save();
 
-    const response = {
-      id: newPublish._id,
-      date: newPublish.date,
-      location: newPublish.location,
-      film: newPublish.film,
-      camera: newPublish.camera,
-      lens: newPublish.lens,
-      tags: newPublish.tags,
-      picture: newPublish.image,
-    };
+      const response = {
+        id: newPublish._id,
+        date: newPublish.date,
+        location: newPublish.location,
+        film: newPublish.film,
+        camera: newPublish.camera,
+        lens: newPublish.lens,
+        tags: newPublish.tags,
+        picture: newPublish.image,
+      };
 
-    res.json(response);
-  } catch (error) {
-    console.log(error.message);
+      res.json(response);
+    } catch (error) {
+      console.log(error.message);
+    }
+  } else {
+    res.status(200).json({ message: "Please fill all fields" });
   }
 });
 
