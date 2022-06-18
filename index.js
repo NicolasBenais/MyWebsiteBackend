@@ -24,6 +24,10 @@ app.use(loginRoutes);
 const publishRoutes = require("./routes/publish");
 app.use(publishRoutes);
 
+// This route to see the picture you just publied
+const publicationRoutes = require("./routes/publication");
+app.use(publicationRoutes);
+
 app.all("*", (req, res) => {
   res.status(400).json("Page introuvable");
 });
