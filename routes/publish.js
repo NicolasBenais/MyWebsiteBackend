@@ -17,7 +17,6 @@ router.post("/publish", async (req, res) => {
     req.fields.film &&
     req.fields.camera &&
     req.fields.lens &&
-    req.fields.tags &&
     req.files.picture
   ) {
     try {
@@ -27,7 +26,6 @@ router.post("/publish", async (req, res) => {
         film: req.fields.film,
         camera: req.fields.camera,
         lens: req.fields.lens,
-        tags: req.fields.tags,
       });
 
       const picture = await cloudinary.uploader.upload(req.files.picture.path, {
@@ -46,7 +44,6 @@ router.post("/publish", async (req, res) => {
         film: newPublish.film,
         camera: newPublish.camera,
         lens: newPublish.lens,
-        tags: newPublish.tags,
         picture: newPublish.image,
       };
 

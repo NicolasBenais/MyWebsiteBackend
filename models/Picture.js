@@ -7,7 +7,6 @@ const Picture = mongoose.model("Picture", {
   film: String,
   camera: String,
   lens: String,
-  tags: Array,
 });
 
 module.exports = Picture;
