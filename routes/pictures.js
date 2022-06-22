@@ -11,7 +11,7 @@ router.get("/pictures", async (req, res) => {
       limit = limit + req.query.limit;
     }
 
-    const pictures = await Picture.find().sort({ fields: -1 }).limit(limit);
+    const pictures = await Picture.find().sort({ _id: -1 }).limit(limit);
 
     res.status(200).json(pictures);
   } catch (error) {

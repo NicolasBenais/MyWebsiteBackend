@@ -34,7 +34,6 @@ router.post("/publish", async (req, res) => {
       });
 
       newPublish.image = picture;
-
       await newPublish.save();
 
       const response = {
