@@ -1,12 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-const apiKey = "";
+// Model
+const Picture = require("../models/Picture");
 
 router.get("/pictures", async (req, res) => {
   try {
-    const response = await axios.get(``);
-    res.json(response.data);
+    let limit = 12;
+
+    const pictures = await Picture.find().limit(limit);
+    res.status(200).json(pictures);
   } catch (error) {
     console.log(error.message);
   }
