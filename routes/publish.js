@@ -12,20 +12,16 @@ const Publish = require("../models/Picture");
 
 router.post("/publish", async (req, res) => {
   if (
+    req.files.picture &&
     req.fields.date &&
     req.fields.location &&
-    req.fields.film &&
-    req.fields.camera &&
-    req.fields.lens &&
-    req.files.picture
+    req.fields.format
   ) {
     try {
       const newPublish = new Publish({
         date: req.fields.date,
         location: req.fields.location,
-        film: req.fields.film,
-        camera: req.fields.camera,
-        lens: req.fields.lens,
+        format: req.fields.format,
       });
 
       const picture = await cloudinary.uploader.upload(req.files.picture.path, {
@@ -38,12 +34,10 @@ router.post("/publish", async (req, res) => {
 
       const response = {
         id: newPublish._id,
+        picture: newPublish.image,
         date: newPublish.date,
         location: newPublish.location,
-        film: newPublish.film,
-        camera: newPublish.camera,
-        lens: newPublish.lens,
-        picture: newPublish.image,
+        format: newPublish.format,
       };
 
       res.json(response);
