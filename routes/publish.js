@@ -13,12 +13,14 @@ const Publish = require("../models/Picture");
 router.post("/publish", async (req, res) => {
   if (
     req.files.picture &&
+    req.fields.title &&
     req.fields.date &&
     req.fields.location &&
     req.fields.format
   ) {
     try {
       const newPublish = new Publish({
+        title: req.fields.title,
         date: req.fields.date,
         location: req.fields.location,
         format: req.fields.format,
@@ -35,6 +37,7 @@ router.post("/publish", async (req, res) => {
       const response = {
         id: newPublish._id,
         picture: newPublish.image,
+        title: newPublish.title,
         date: newPublish.date,
         location: newPublish.location,
         format: newPublish.format,
