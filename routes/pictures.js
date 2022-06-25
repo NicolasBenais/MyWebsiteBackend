@@ -7,8 +7,9 @@ const Picture = require("../models/Picture");
 router.get("/pictures", async (req, res) => {
   try {
     let limit = 12;
+
     if (req.query.limit) {
-      limit = limit + req.query.limit;
+      limit = limit + Number(req.query.limit);
     }
 
     const pictures = await Picture.find().sort({ _id: -1 }).limit(limit);
