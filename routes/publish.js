@@ -27,16 +27,42 @@ router.post("/publish", async (req, res) => {
       });
 
       const picture = await cloudinary.uploader.upload(req.files.picture.path, {
-        folder: "MyProject",
+        folder: "MyProject/pictures",
         id: newPublish._id,
       });
+      newPublish.picture = picture;
 
-      newPublish.image = picture;
+      // Save thumbnail if the picture is on portrait format
+      if (req.fields.format === "portrait") {
+        const thumbnail = await cloudinary.uploader.upload(
+          req.files.picture.path,
+          // { transformation: { width: 673, height: 1000 } },
+          {
+            folder: "MyProject/thumbnails",
+            id: newPublish._id,
+          }
+        );
+        newPublish.thumbnail = thumbnail;
+
+        // Save thumbnail if the picture is on landscape format
+      } else if (req.fields.format === "landscape") {
+        const thumbnail = await cloudinary.uploader.upload(
+          req.files.picture.path,
+          // { transformation: { width: 1000, height: 673 } },
+          {
+            folder: "MyProject/thumbnail",
+            id: newPublish._id,
+          }
+        );
+        newPublish.thumbnail = thumbnail;
+      }
+
       await newPublish.save();
 
       const response = {
         id: newPublish._id,
-        picture: newPublish.image,
+        picture: newPublish.picture,
+        thumbnail: newPublish.thumbnail,
         title: newPublish.title,
         date: newPublish.date,
         location: newPublish.location,
