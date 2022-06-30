@@ -74,7 +74,7 @@ router.post("/publish", async (req, res) => {
       console.log(error.message);
     }
   } else {
-    res.status(200).json({ message: "Please fill all fields" });
+    res.status(400).json({ message: "Please fill all fields" });
   }
 });
 
