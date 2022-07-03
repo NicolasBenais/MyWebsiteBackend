@@ -34,7 +34,7 @@ router.post("/publish", async (req, res) => {
       const thumbnail = await cloudinary.uploader.upload(
         req.files.thumbnail.path,
         {
-          folder: "MyProject/thumbnail",
+          folder: "MyProject/thumbnails",
         }
       );
       newPublish.thumbnail = thumbnail;
