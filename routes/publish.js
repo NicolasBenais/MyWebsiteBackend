@@ -16,15 +16,13 @@ router.post("/publish", async (req, res) => {
     req.files.thumbnail &&
     req.fields.title &&
     req.fields.date &&
-    req.fields.location &&
-    req.fields.format
+    req.fields.location
   ) {
     try {
       const newPublish = new Publish({
         title: req.fields.title,
         date: req.fields.date,
         location: req.fields.location,
-        format: req.fields.format,
       });
 
       const picture = await cloudinary.uploader.upload(req.files.picture.path, {
@@ -50,7 +48,6 @@ router.post("/publish", async (req, res) => {
         title: newPublish.title,
         date: newPublish.date,
         location: newPublish.location,
-        format: newPublish.format,
       };
 
       res.json(response);

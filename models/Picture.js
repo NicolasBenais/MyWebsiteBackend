@@ -6,7 +6,6 @@ const Picture = mongoose.model("Picture", {
   title: String,
   date: String,
   location: String,
-  format: String,
 });
 
 module.exports = Picture;
