@@ -7,6 +7,7 @@ const cors = require("cors");
 const app = express();
 app.use(formidable());
 app.use(cors());
+app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -28,14 +29,18 @@ app.use(publishRoutes);
 const publicationRoutes = require("./routes/publication");
 app.use(publicationRoutes);
 
+// -------- CONTACT FORM --------
+const contactRoutes = require("./routes/contact");
+app.use(contactRoutes);
+
 app.all("*", (req, res) => {
   res.status(400).json("Page introuvable");
 });
 
-app.listen(process.env.PORT, () => {
-  console.log("Serveur has started");
-});
-
-// app.listen(4000, () => {
+// app.listen(process.env.PORT, () => {
 //   console.log("Serveur has started");
 // });
+
+app.listen(4000, () => {
+  console.log("Serveur has started");
+});
